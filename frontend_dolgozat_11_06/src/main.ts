@@ -42,6 +42,8 @@ function gombok()
   inputreadonly.readOnly = true;
   app!.appendChild(inputreadonly);
 
+
+  //Sajnos az egyezéseket nem sikerült elkészítenem
   let label1 = document.createElement('label');
   label1.textContent = 'pontos egyezés';
 
