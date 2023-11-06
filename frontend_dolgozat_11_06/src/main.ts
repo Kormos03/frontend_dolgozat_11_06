@@ -25,7 +25,56 @@ function gombok()
 
   thebutton.addEventListener('click', The);
 
+  
+  let hosszbutton = document.createElement('button');
+  hosszbutton.textContent = "Hossz";
+  app!.appendChild(hosszbutton);
+
+  hosszbutton.addEventListener('click', hossz);
+
+  let input = document.createElement('input');
+  input.placeholder = 'Szerző';
+  app!.appendChild(input);
+
+  let inputreadonly = document.createElement('input');
+  inputreadonly.placeholder = 'Eredmény';
+  inputreadonly.setAttribute('type', 'number');
+  inputreadonly.readOnly = true;
+  app!.appendChild(inputreadonly);
+
+  let label1 = document.createElement('label');
+  label1.textContent = 'pontos egyezés';
+
+  let checkboxpontos = document.createElement('input');
+  checkboxpontos.setAttribute('type','radio');
+  checkboxpontos.setAttribute('name', 'radio');
+  
+
+  let label2 = document.createElement('label');
+  label2.textContent = 'részleges egyezés';
+
+  let checkboxreszleges = document.createElement('input');
+  checkboxreszleges.setAttribute('type','radio');
+  checkboxreszleges.setAttribute('name', 'radio');
+
+  app!.appendChild(label1);
+  label1!.appendChild(checkboxpontos);
+  app!.appendChild(label2);
+  label2.appendChild(checkboxreszleges);
+
+  input.addEventListener(('change'), () =>
+  {
+    let length : number = quotesarr.filter(obj => {
+      return obj.author === input.value;
+  }).length;
+  console.log(length);
+  inputreadonly.value = length.toString();
+  })
 }
+
+
+
+
 
 function osszesidezet()
 {
@@ -37,18 +86,40 @@ function osszesidezet()
   }
 }
 
+
+
 function The()
 {
-    const ol = document.getElementById('ol');
+    const ol = document.createElement('ol');
+    document.getElementById('app')! .appendChild(ol);
       let The : string[] = [];
       quotesarr.forEach(element => {
         The.push(element.quote);
       });
-      The.forEach(element => {
+      console.log(The);
+      for (const iterator of The) {
         const li = document.createElement('li');
-        li.textContent = element;
-        ol!.appendChild(li);
-      })
+        li.textContent = iterator;
+        console.log(li);
+        const formattedQuote = iterator.replace(/(The|the)/g, '<b>$1</b>');
+        li.innerHTML = `${formattedQuote}`;
+        ol!.appendChild(li);  
+      }
+}
+
+
+
+function hossz()
+{
+  const p = document.createElement('p');
+  document.getElementById('app')! .appendChild(p);
+  const hosszlist : Number[] = [];
+  quotesarr.forEach(element => {
+    hosszlist.push(element.quote.length);
+  }); 
+  const hosszliststring : string = hosszlist.join();
+  console.log(hosszliststring);
+  p.textContent = hosszliststring;   
 }
 
 
